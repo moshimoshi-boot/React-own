@@ -2,17 +2,17 @@ import React, { Component } from 'react';
 import {AppBar, Drawer, MenuItem, Menu} from 'material-ui'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
-class MyBar extends Component {
+class LeftBar extends Component {
 
   constructor () {
-    super()
-    this.selectedMenuItem = ""
+    super();
+    this.selectedMenuItem = "";
   }
 
   menuClicked (ev, value) {
-    this.selectedMenuItem = value
-    alert(this.selectedMenuItem)
-    console.log(this.selectedMenuItem)
+    this.selectedMenuItem = value;
+    console.log(this.selectedMenuItem);
+    this.props.reloadNotes(this.selectedMenuItem);
   }
 
   render() {
@@ -24,14 +24,14 @@ class MyBar extends Component {
 
     return (
       <MuiThemeProvider>
-        <div>
+        <div className="menuProvider">
           <Drawer
             docked={false}
             width={200}
             open={this.props.open}
             onRequestChange={() => this.props.onToggle()}
           >
-            <Menu value={this.selectedMenuItem} onChange={this.menuClicked}>
+            <Menu value={this.selectedMenuItem} onChange={this.menuClicked.bind(this)}>
             { dataList.map(data => {
               return (
                 <MenuItem value={data.id}>{data.name}</MenuItem>
@@ -50,4 +50,4 @@ class MyBar extends Component {
   }
 }
 
-export default MyBar;
+export default LeftBar;
